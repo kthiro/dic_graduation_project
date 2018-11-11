@@ -1,0 +1,33 @@
+<h1>Users#new</h1>
+
+<%= form_with(model: @user, url: confirm_users_path, local:true) do |f| %>
+  <% if flash %>
+    <% flash.each do |key, value| %>
+      <p><%= key %>:<%= value %></p>
+    <% end %>
+  <% end %>
+
+  <% if @user.errors.any? %>
+    <p><%= @user.errors.count %>件のエラーがあります。</p>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <%= f.label 'ユーザーネーム' %>
+  <%= f.text_field :name %>
+  
+  <%= f.label 'メールアドレス' %>
+  <%= f.text_field :email %>
+  
+  <%= f.label 'パスワード' %>
+  <%= f.text_field :password %>
+
+  <%= f.label 'パスワードの確認' %>
+  <%= f.text_field :password_confirmation %>
+  
+  <%= f.submit '登録内容確認' %>
+  
+<% end %>

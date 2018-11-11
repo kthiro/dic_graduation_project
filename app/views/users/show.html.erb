@@ -1,0 +1,31 @@
+<h1>Users#show</h1>
+
+<div>
+  <% if @user.profile_image.url %>
+   <%= image_tag(@user.profile_image.url) %>
+  <% end %>
+  <br>
+  <%= @user.name %>
+  <br>
+  <%= @user.email %>
+  <br>
+  <%= @user.sport_event %>(<%= @user.sport_event_career %>)
+  <br>
+  <%= @user.area %>
+  <br>
+  <%= @user.sex %>
+</div>
+
+<div>
+  <%= @user.introduction %>
+</div>
+
+<p><%= link_to 'ユーザー情報編集', edit_user_path(@user.id) %></p>
+<p><%= link_to 'フォロー一覧', edit_user_path(@user.id) %></p>
+<p><%= link_to 'フォロワー一覧', edit_user_path(@user.id) %></p>
+<p><%= link_to '会話一覧', edit_user_path(@user.id) %></p>
+<p><%= link_to 'ユーザー検索', users_path %></p>
+<p><%= link_to 'チーム検索', edit_user_path(@user.id) %></p>
+<p><%= link_to 'チーム登録', edit_user_path(@user.id) %></p>
+<p><%= link_to 'チーム管理', edit_user_path(@user.id) %></p>
+<p><%= link_to 'ユーザーアカウントの削除', user_path(@user.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></p>
