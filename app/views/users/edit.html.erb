@@ -30,6 +30,11 @@
   <%= f.text_field :password_confirmation %>
 
   <%= f.label 'プロフィール画像' %>
+  <% if @user.profile_image.url %>
+    <%= image_tag(@user.profile_image.url) %>
+    <%= f.hidden_field :profile_image_cache %>
+    <p>別の写真を登録する場合は選択してください。</p>
+  <% end %>
   <%= f.file_field :profile_image %>
   
   <%= f.label 'スポーツ種目' %>
