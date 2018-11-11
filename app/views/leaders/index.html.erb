@@ -1,0 +1,29 @@
+<h1>Leaders#index</h1>
+
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
+  <% end %>
+</ul>
+
+<table>
+  <tr>
+    <th>PROFILE_IMAGE</th>
+    <th>NAME</th>
+    <th>SPORT_EVENT</th>
+    <th>フォロー解除リンク</th>
+    <th>会話するリンク</th>
+  </tr>
+  
+  <% @leaders.each do |leader| %>
+    <tr>
+      <td><%= image_tag(leader.profile_image.url) if leader.profile_image.url %></td>
+      <td><%= leader.name %></td>
+      <td><%= leader.sport_event %></td>
+      <td><%= link_to 'フォロー解除', relationship_path(leader.id, name: 'leaders'), method: :delete %></td>
+      <td>後で実装</td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'マイプロフィール', user_path(current_user.id) %>

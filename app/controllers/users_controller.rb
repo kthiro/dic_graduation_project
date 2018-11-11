@@ -30,7 +30,8 @@ class UsersController < ApplicationController
     @q = User.ransack(params[:q])
     # binding.pry
     @users = @q.result(distinct: true)
-    binding.pry
+    # binding.pry
+    @relationships = current_user.active_relationships
   end
 
   def show

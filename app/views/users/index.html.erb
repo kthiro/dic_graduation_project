@@ -10,6 +10,12 @@
   <%= f.submit '検索' %>
 <% end %>
 
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
+  <% end %>
+</ul>
+
 <table>
   <tr>
     <th>PROFILE_IMAGE</th>
@@ -24,7 +30,15 @@
       <td><%= image_tag(user.profile_image.url) if user.profile_image.url %></td>
       <td><%= user.name %></td>
       <td><%= user.sport_event %></td>
-      <td>後で実装</td>
+      <td>
+        <% if user.id == current_user.id %>
+          <p>自分のアカウント</p>
+        <% elsif @relationships.find_by(leader_id: user.id) %>
+          <%= link_to 'フォロー解除', relationship_path(user.id, name: 'users'), method: :delete %>
+        <% else %>
+          <%= link_to 'フォローする', relationships_path(user_id: user.id), method: :post %>
+        <% end %>
+      </td>
       <td>後で実装</td>
     </tr>
   <% end %>

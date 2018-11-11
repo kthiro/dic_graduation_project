@@ -1,0 +1,21 @@
+<h1>Followers#index</h1>
+
+<table>
+  <tr>
+    <th>PROFILE_IMAGE</th>
+    <th>NAME</th>
+    <th>SPORT_EVENT</th>
+    <th>会話するリンク</th>
+  </tr>
+  
+  <% @followers.each do |follower| %>
+    <tr>
+      <td><%= image_tag(follower.profile_image.url) if follower.profile_image.url %></td>
+      <td><%= follower.name %></td>
+      <td><%= follower.sport_event %></td>
+      <td>後で実装</td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'マイプロフィール', user_path(current_user.id) %>
