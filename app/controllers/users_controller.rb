@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     begin
       @user.save
-      redirect_to user_path(@user.id), notice: 'ユーザー登録が完了しました。'
+      redirect_to new_session_path, notice: 'ユーザー登録が完了しました。登録した内容でログインしてください。'
     rescue ActiveRecord::RecordNotUnique
       flash.now[:danger] = "既に登録済みのメールアドレスです。他のメールアドレスで登録してください。"
       render 'new'
