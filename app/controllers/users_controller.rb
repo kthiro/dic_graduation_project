@@ -27,7 +27,10 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @q = User.ransack(params[:q])
+    # binding.pry
+    @users = @q.result(distinct: true)
+    binding.pry
   end
 
   def show

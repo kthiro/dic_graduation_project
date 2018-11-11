@@ -20,6 +20,14 @@ class User < ApplicationRecord
   enum sex: { "未選択": 0, "男性": 1, "女性": 2 }
   
   validates :introduction, length: { maximum: 140 }
+  
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name sport_event]
+  end
+  
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
 
   private
   
