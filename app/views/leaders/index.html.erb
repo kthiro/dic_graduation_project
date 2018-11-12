@@ -1,5 +1,7 @@
 <h1>Leaders#index</h1>
 
+<%= link_to 'マイプロフィール', user_path(current_user.id) %>
+
 <ul>
   <% flash.each do |key, value| %>
     <li><%= value %></li>
@@ -21,9 +23,7 @@
       <td><%= leader.name %></td>
       <td><%= leader.sport_event %></td>
       <td><%= link_to 'フォロー解除', relationship_path(leader.id, name: 'leaders'), method: :delete %></td>
-      <td>後で実装</td>
+      <td><%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: leader.id), method: :post %></td>
     </tr>
   <% end %>
 </table>
-
-<%= link_to 'マイプロフィール', user_path(current_user.id) %>

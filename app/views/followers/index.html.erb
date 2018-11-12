@@ -1,5 +1,7 @@
 <h1>Followers#index</h1>
 
+<%= link_to 'マイプロフィール', user_path(current_user.id) %>
+
 <table>
   <tr>
     <th>PROFILE_IMAGE</th>
@@ -13,9 +15,7 @@
       <td><%= image_tag(follower.profile_image.url) if follower.profile_image.url %></td>
       <td><%= follower.name %></td>
       <td><%= follower.sport_event %></td>
-      <td>後で実装</td>
+      <td><%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: follower.id), method: :post %></td>
     </tr>
   <% end %>
 </table>
-
-<%= link_to 'マイプロフィール', user_path(current_user.id) %>

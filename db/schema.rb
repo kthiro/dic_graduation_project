@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181111064424) do
+ActiveRecord::Schema.define(version: 20181112033716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,4 +40,27 @@ ActiveRecord::Schema.define(version: 20181111064424) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "users_conversations", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "recipient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_users_conversations_on_recipient_id"
+    t.index ["sender_id", "recipient_id"], name: "index_users_conversations_on_sender_id_and_recipient_id", unique: true
+    t.index ["sender_id"], name: "index_users_conversations_on_sender_id"
+  end
+
+  create_table "users_messages", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "users_conversation_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_users_messages_on_user_id"
+    t.index ["users_conversation_id"], name: "index_users_messages_on_users_conversation_id"
+  end
+
+  add_foreign_key "users_messages", "users"
+  add_foreign_key "users_messages", "users_conversations"
 end

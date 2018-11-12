@@ -1,0 +1,21 @@
+<h1>UsersConversations#index</h1>
+
+<ul>
+  <% @conversations.each do |conversation| %>
+    <% if conversation.sender_id == current_user.id %>
+      <% user = User.find(conversation.recipient_id) %>
+      <li>
+        <%= image_tag(user.profile_image.url) if user.profile_image.url %>
+        <%= User.find(conversation.recipient_id).name %>
+      </li>
+    <% elsif conversation.recipient_id == current_user.id %>
+      <% user = User.find(conversation.sender_id) %>
+      <li>
+        <%= image_tag(user.profile_image.url) if user.profile_image.url %>
+        <%= User.find(conversation.sender_id).name %>
+      </li>
+    <% end %>
+    
+    <%= link_to '会話詳細', user_users_conversation_users_messages_path(current_user.id, conversation.id) %>
+  <% end %>
+</ul>

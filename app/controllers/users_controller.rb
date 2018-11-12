@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def index
     @q = User.ransack(params[:q])
     # binding.pry
-    @users = @q.result(distinct: true)
+    @users = @q.result(distinct: true).order("updated_at DESC")
     # binding.pry
     @relationships = current_user.active_relationships
   end

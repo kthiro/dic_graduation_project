@@ -39,7 +39,7 @@
           <%= link_to 'フォローする', relationships_path(user_id: user.id), method: :post %>
         <% end %>
       </td>
-      <td>後で実装</td>
+      <td><%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: user.id), method: :post %></td>
     </tr>
   <% end %>
 </table>

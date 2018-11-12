@@ -3,7 +3,7 @@ class User < ApplicationRecord
   mount_uploader :profile_image, UserProfileImageUploader
   
   
-  # モデル検証前にemailの強制小文字化
+  # モデル検証前にemailカラムの強制小文字化
   before_validation { email.downcase! }
   
   
@@ -48,6 +48,15 @@ class User < ApplicationRecord
   has_many :passive_relationships, foreign_key: 'leader_id', class_name: 'Relationship', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
   
+  # users_conversationsテーブルとのアソシエーションを設定
+  has_many :sending_users_conversations, foreign_key: 'sender_id', class_name: 'UsersConversation', dependent: :destroy
+  has_many :recipient_users, through: :sending_users_conversations, source: :recipient
+  
+  has_many :receiving_users_conversations, foreign_key: 'recipient_id', class_name: 'UsersConversation', dependent: :destroy
+  has_many :sender_users, through: :receiving_users_conversations, source: :sender
+  
+  # users_messagesテーブルとのアソシエーションを設定
+  has_many :users_messages, dependent: :destroy
 
   private
   
