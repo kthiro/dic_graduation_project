@@ -30,8 +30,7 @@
 <p><%= link_to 'ユーザー情報編集', edit_user_path(@user.id) %></p>
 <p><%= link_to 'フォロー一覧', user_leaders_path(@user.id) %></p>
 <p><%= link_to 'フォロワー一覧', user_followers_path(@user.id) %></p>
-<!--リンク先要変更↓-->
-<p><%= link_to '会話一覧', edit_user_path(@user.id) %></p>
+<p><%= link_to '会話一覧', user_users_conversations_path(@user.id) %></p>
 <p><%= link_to 'ユーザー検索', users_path %></p>
 <!--リンク先要変更↓-->
 <p><%= link_to 'チーム検索', edit_user_path(@user.id) %></p>

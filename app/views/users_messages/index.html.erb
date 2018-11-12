@@ -1,0 +1,33 @@
+<h1>UsersMessages#index</h1>
+<h1><%= @partner.name %>さんとの会話</h1>
+
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
+  <% end %>
+</ul>
+
+<%= form_with(model: [@user, @conversation, @message], local: true) do |f| %>
+
+  <%= f.label :body, 'メッセージを入力' %>
+  <%= f.text_area :body %>
+  
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  
+  <%= f.submit '送信' %>
+  
+<% end %>
+
+<h3>メッセージ一覧</h3>
+<ul>
+  <% @messages.each do |message| %>
+    <% user = User.find(message.user_id) %>
+    <li>
+      <%= image_tag(user.profile_image.url) if user.profile_image.url %>
+      <%= user.name %>
+      <%= message.body %>
+      <%= message.message_time %>
+    </li>
+  <% end %>  
+</ul>
+
