@@ -1,0 +1,27 @@
+<h1>Teams#show</h1>
+
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
+  <% end %>
+</ul>
+
+  <p>プロフィール画像：</p>
+  <div><%= image_tag(@team.profile_image.url) if @team.profile_image.url %></div>
+  <br>
+  <p>チーム名：<%= @team.name %></p>
+  <p>活動種目：<%= @team.sport_event %></p>
+  <p>活動地域：<%= @team.area %></p>
+  <p>所属メンバーの人数：<%= @team.number_of_member %>人</p>
+  <p>チーム紹介：<%= @team.introduction %></p>
+  <p>管理者情報
+    <br>
+    <% @team.administrators.each do |administrator| %>
+      <%= administrator.name %>
+      <%= button_to '管理者と会話する', user_users_conversations_path(current_user.id, recipient_id: administrator.id), method: :post unless administrator.id == current_user.id %>
+    <% end %>
+  </p>
+  <% if administering? %>
+    <p><%= link_to 'チーム情報編集', edit_team_path(@team.id) %></p>
+    <p><%= link_to 'このチームを削除する', team_path(@team.id), method: :delete, data: { confirm:'このチームを削除してよろしいですか？' } %></p>
+  <% end %>

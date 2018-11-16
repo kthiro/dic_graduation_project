@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181112033716) do
+ActiveRecord::Schema.define(version: 20181112142416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,27 @@ ActiveRecord::Schema.define(version: 20181112033716) do
     t.index ["follower_id", "leader_id"], name: "index_relationships_on_follower_id_and_leader_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
     t.index ["leader_id"], name: "index_relationships_on_leader_id"
+  end
+
+  create_table "team_administrators", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_administrators_on_team_id"
+    t.index ["user_id", "team_id"], name: "index_team_administrators_on_user_id_and_team_id", unique: true
+    t.index ["user_id"], name: "index_team_administrators_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.string "sport_event", limit: 100
+    t.string "area", limit: 100
+    t.integer "number_of_member"
+    t.string "profile_image"
+    t.text "introduction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,6 +82,8 @@ ActiveRecord::Schema.define(version: 20181112033716) do
     t.index ["users_conversation_id"], name: "index_users_messages_on_users_conversation_id"
   end
 
+  add_foreign_key "team_administrators", "teams"
+  add_foreign_key "team_administrators", "users"
   add_foreign_key "users_messages", "users"
   add_foreign_key "users_messages", "users_conversations"
 end

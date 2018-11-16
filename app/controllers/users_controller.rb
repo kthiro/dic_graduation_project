@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @administering_teams = @user.administering_teams
   end
 
   def edit
@@ -65,11 +66,5 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-  
-  def retreive_image_from_cache
-    unless params[:user][:image_cache] = ""
-      @album.image.retrieve_from_cache! params[:user][:image_cache]
-    end
-  end
-  
+
 end
