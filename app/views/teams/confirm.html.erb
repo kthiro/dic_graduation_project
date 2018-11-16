@@ -1,0 +1,41 @@
+<h1>Teams#Confirm</h1>
+
+<p>以下の内容で登録しますか？</p>
+
+<%= form_with(model: @team, local:true) do |f| %>
+
+  <p>
+    プロフィール画像：
+    <br>
+    <%= image_tag(@team.profile_image.url) if @team.profile_image.url %>
+  </p>
+  <p>チーム名：<%= @team.name %></p>
+  <p>活動種目：<%= @team.sport_event %></p>
+  <p>活動地域：<%= @team.area %></p>
+  <p>所属メンバーの人数：<%= @team.number_of_member %>人</p>
+  <p>チーム紹介：<%= @team.introduction %></p>
+  
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :sport_event %>
+  <%= f.hidden_field :area %>
+  <%= f.hidden_field :number_of_member %>
+  <%= f.hidden_field :profile_image_cache if @team.profile_image.url %>
+  <%= f.hidden_field :introduction %>
+  
+  <br>
+  <%= f.submit '登録する' %>
+  
+<% end %>
+
+<%= form_with(model: @team, url: new_team_path, method: :get, local: true) do |f| %>
+
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :sport_event %>
+  <%= f.hidden_field :area %>
+  <%= f.hidden_field :number_of_member %>
+  <%= f.hidden_field :profile_image_cache if @team.profile_image.url %>
+  <%= f.hidden_field :introduction %>
+
+  <%= f.submit '戻る', name: 'back' %>
+  
+<% end %>

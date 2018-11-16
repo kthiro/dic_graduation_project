@@ -1,0 +1,42 @@
+<h1>Teams#index</h1>
+
+<%= search_form_for @q do |f| %>
+  <%= f.label :name_cont, 'チームネームに次を含む' %>
+  <%= f.search_field :name_cont %>
+  
+  <%= f.label :sport_event_cont, '活動種目名に次を含む' %>
+  <%= f.search_field :sport_event_cont %>
+  
+  <%= f.label :area_cont, '活動地域に次を含む' %>
+  <%= f.search_field :area_cont %>
+  
+  <%= f.submit '検索' %>
+<% end %>
+
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
+  <% end %>
+</ul>
+
+<table>
+  <tr>
+    <th>PROFILE_IMAGE</th>
+    <th>NAME</th>
+    <th>SPORT_EVENT</th>
+    <th>AREA</th>
+    <th>NUMBER_OF_MEMBER</th>
+    <th>LINK_TO_SHOW</th>
+  </tr>
+  
+  <% @teams.each do |team| %>
+    <tr>
+      <td><%= image_tag(team.profile_image.url) if team.profile_image.url %></td>
+      <td><%= team.name %></td>
+      <td><%= team.sport_event %></td>
+      <td><%= team.area %></td>
+      <td><%= team.number_of_member %></td>
+      <td><%= link_to '詳細', team_path(team.id) %></td>
+    </tr>
+  <% end %>
+</table>

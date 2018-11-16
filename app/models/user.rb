@@ -57,6 +57,11 @@ class User < ApplicationRecord
   
   # users_messagesテーブルとのアソシエーションを設定
   has_many :users_messages, dependent: :destroy
+  
+  # team_administratorsテーブルとのアソシエーションを設定
+  has_many :team_administrators, dependent: :destroy
+  has_many :administering_teams, through: :team_administrators, source: :team
+  
 
   private
   

@@ -32,10 +32,14 @@
 <p><%= link_to 'フォロワー一覧', user_followers_path(@user.id) %></p>
 <p><%= link_to '会話一覧', user_users_conversations_path(@user.id) %></p>
 <p><%= link_to 'ユーザー検索', users_path %></p>
-<!--リンク先要変更↓-->
-<p><%= link_to 'チーム検索', edit_user_path(@user.id) %></p>
-<!--リンク先要変更↓-->
-<p><%= link_to 'チーム登録', edit_user_path(@user.id) %></p>
-<!--リンク先要変更↓-->
-<p><%= link_to 'チーム管理', edit_user_path(@user.id) %></p>
+<p><%= link_to 'チーム検索', teams_path %></p>
+<p><%= link_to 'チーム登録', new_team_path %></p>
+<p>
+  管理しているチーム
+  <br>
+  <% @administering_teams.each do |team| %>
+    <%= link_to "#{team.name}", team_path(team.id, team_administrator_id: @user.id) %>
+  <% end %>
+</p>
+
 <p><%= link_to 'ユーザーアカウントの削除', user_path(@user.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></p>

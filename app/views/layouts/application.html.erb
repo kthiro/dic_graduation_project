@@ -15,6 +15,10 @@
       <%= link_to 'ログイン', new_session_path %>
     <% end %>
     
+    <% if administering? %>
+      <p><%= current_team.name %>を管理中です。<%= link_to 'チーム管理を終了する', session_path(current_user.id, administering_team_id: current_team.id), method: :delete %></p>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>

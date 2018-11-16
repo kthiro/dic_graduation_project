@@ -17,4 +17,10 @@ Rails.application.routes.draw do
   
   resources :relationships, only: [:create, :destroy]
   
+  resources :teams do
+    collection do
+      post :confirm
+    end
+  end
+  
 end
