@@ -17,7 +17,8 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 }, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   
   has_secure_password
-  validates :password, length: { minimum:8 }
+  validates :password, length: { minimum:8 }, on: :create
+  validates :password, length: { minimum:8 }, on: :update, allow_blank: true
   
   validates :sport_event, length: { maximum: 100 }
   

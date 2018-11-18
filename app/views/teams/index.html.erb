@@ -1,42 +1,52 @@
-<h1>Teams#index</h1>
-
-<%= search_form_for @q do |f| %>
-  <%= f.label :name_cont, 'チームネームに次を含む' %>
-  <%= f.search_field :name_cont %>
-  
-  <%= f.label :sport_event_cont, '活動種目名に次を含む' %>
-  <%= f.search_field :sport_event_cont %>
-  
-  <%= f.label :area_cont, '活動地域に次を含む' %>
-  <%= f.search_field :area_cont %>
-  
-  <%= f.submit '検索' %>
-<% end %>
-
 <ul>
   <% flash.each do |key, value| %>
     <li><%= value %></li>
   <% end %>
 </ul>
 
-<table>
-  <tr>
-    <th>PROFILE_IMAGE</th>
-    <th>NAME</th>
-    <th>SPORT_EVENT</th>
-    <th>AREA</th>
-    <th>NUMBER_OF_MEMBER</th>
-    <th>LINK_TO_SHOW</th>
-  </tr>
-  
-  <% @teams.each do |team| %>
-    <tr>
-      <td><%= image_tag(team.profile_image.url) if team.profile_image.url %></td>
-      <td><%= team.name %></td>
-      <td><%= team.sport_event %></td>
-      <td><%= team.area %></td>
-      <td><%= team.number_of_member %></td>
-      <td><%= link_to '詳細', team_path(team.id) %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="jumbotron team">
+  <h1 class="text-white">チーム検索</h1>
+  <p class="lead text-white">チーム名、スポーツの種目名、活動地域をキーワードに、あなたにぴったりのチームを探してください。</p>
+  <hr class="my-4">
+  <div class="container-fluid">
+    <div class="row">
+      <%= search_form_for(@q, class: "col-12 row") do |f| %>
+        <div class="col-sm-10 row">
+          <div class="col-sm-4">
+            <%= f.search_field :name_cont, class: "form-control", placeholder: "チームネームで検索" %>
+          </div>
+          <div class="col-sm-4">
+            <%= f.search_field :sport_event_cont, class: "form-control", placeholder: "スポーツ種目で検索" %>
+          </div>
+          <div class="col-sm-4">
+            <%= f.search_field :area_cont, class: "form-control", placeholder: "活動地域で検索" %>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <%= f.submit '検索', class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="card-group row">
+    <% @teams.each do |team| %>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card sm-6 mb-4 lg-3 shadow">
+          <%= image_tag(team.profile_image.url, class: "card-img-top", alt: "Card image cap") if team.profile_image.url %>
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <%= team.name %>♥<small><%= team.sport_event %></small>@<small><%= team.area %></small>
+            </h5>
+            <hr class="my-4">
+            <div class="card-text text-center">
+              <%= link_to "詳細", team_path(team.id), class: "btn btn-outline-warning" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

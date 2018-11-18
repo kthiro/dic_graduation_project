@@ -1,0 +1,63 @@
+<div class="jumbotron user" id="tops">
+  <h1 class="text-white text-center">
+    <div class="display-1">Sportweb</div>
+    <div class="display-4">へようこそ</div>
+  </h1>
+  <p class="lead text-white text-center"><strong>Sportweb</strong>はスポーツを愛する人々やコミュニティが集まるSNSです。</p>
+  <hr class="my-4">
+  <h2 class="text-white text-center">さあスポーツでつながろう</h2>
+  <br>
+
+  <div class="container-fruid">
+    <div class="row">
+    
+      <div class="col-md-6 justify-content-center">
+        <div class="col-11">
+          <div class="card border-secondary">
+            <div class="card-header text-center btn btn-outline-secondary border-secondary">
+              ログイン
+            </div>
+            <div class="card-body border-secondary">
+              <div class="card-text">
+                <%= render template: 'sessions/_form' %>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    
+      <div class="col-md-6 justify-content-center">
+        <div class="col-11">
+          <div class="card border-info">
+            <div class="card-header text-center btn btn-outline-info border-info">
+              利用開始登録
+            </div>
+            <div class="card-body border-info">
+              <div class="card-text">
+                <%= render template: 'users/_form' %>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $("body").css('background-color', '#8EECA1');
+  });
+</script>
+
+<script>
+  $(function() {
+    $(".card-body").hide();
+    $(".card-header").on('click', function(){
+      $(this).next(".card-body").slideToggle();
+    });
+  });
+</script>

@@ -1,27 +1,67 @@
-<h1>Teams#show</h1>
-
-<ul>
-  <% flash.each do |key, value| %>
-    <li><%= value %></li>
-  <% end %>
-</ul>
-
-  <p>プロフィール画像：</p>
-  <div><%= image_tag(@team.profile_image.url) if @team.profile_image.url %></div>
-  <br>
-  <p>チーム名：<%= @team.name %></p>
-  <p>活動種目：<%= @team.sport_event %></p>
-  <p>活動地域：<%= @team.area %></p>
-  <p>所属メンバーの人数：<%= @team.number_of_member %>人</p>
-  <p>チーム紹介：<%= @team.introduction %></p>
-  <p>管理者情報
-    <br>
-    <% @team.administrators.each do |administrator| %>
-      <%= administrator.name %>
-      <%= button_to '管理者と会話する', user_users_conversations_path(current_user.id, recipient_id: administrator.id), method: :post unless administrator.id == current_user.id %>
+<% if flash %>
+  <ul>
+    <% flash.each do |key, value| %>
+      <li><%= value %></li>
     <% end %>
-  </p>
-  <% if administering? %>
-    <p><%= link_to 'チーム情報編集', edit_team_path(@team.id) %></p>
-    <p><%= link_to 'このチームを削除する', team_path(@team.id), method: :delete, data: { confirm:'このチームを削除してよろしいですか？' } %></p>
-  <% end %>
+  </ul>
+<% end %>
+
+<div class="jumbotron team">
+  <h1 class="text-white">チームプロフィール</h1>
+  <hr class="my-4">
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card-group justify-content-center">
+        <div class="card shadow">
+          <%= image_tag(@team.profile_image.url, class: "card-img-top", alt: "Card image cap") if @team.profile_image.url %>
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <%= @team.name %>♥<small><%= @team.sport_event %></small>@<small><%= @team.area %></small>
+              <br>
+              <small>所属メンバー：<%= @team.number_of_member %>人</small>
+            </h5>
+            <hr class="my-4">
+            <div class="card-text text-center">
+              <div class="card-text">
+                <%= @team.introduction %>
+                <hr class="my-4">
+                このチームの管理者
+                <div class="container-fluid">
+                  <div class="card-group row justify-content-center">
+                    <% @team.administrators.each do |administrator| %>
+                    <div class="col-sm-4">
+                      <div class="card shadow">
+                        <%= image_tag(administrator.profile_image.url, class: "card-img-top", alt: "Card image cap") if administrator.profile_image.url %>
+                        <div class="card-body">
+                          <h5 class="card-title text-center">
+                            <%= administrator.name %>♥<small><%= administrator.sport_event %></small>@<small><%= administrator.area %></small>
+                          </h5>
+                          <hr class="my-4">
+                          <div class="card-text">
+                            <%= administrator.introduction %>
+                            <hr class="my-4">
+                            <%= button_to '管理者と会話する', user_users_conversations_path(current_user.id, recipient_id: administrator.id), method: :post, class: "btn btn-outline-success btn-sm" unless administrator.id == current_user.id %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <% if administering? && @team.id == current_team.id %>
+        <p><%= link_to 'チーム情報編集', edit_team_path(@team.id) %></p>
+        <p><%= link_to 'このチームを削除する', team_path(@team.id), method: :delete, data: { confirm:'このチームを削除してよろしいですか？' } %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

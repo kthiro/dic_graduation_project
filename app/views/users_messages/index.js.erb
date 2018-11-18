@@ -1,0 +1,3 @@
+$("#messages_index").html("<%= j(render 'users_messages/index', { user: @user, conversation: @conversation, messages: @messages }) %>")
+
+$("textarea").val("")

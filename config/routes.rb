@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'tops/index'
+
   resources :users do
     collection do
       post :confirm
@@ -8,8 +10,8 @@ Rails.application.routes.draw do
     resources :leaders, only: [:index]
     resources :followers, only: [:index]
     
-    resources :users_conversations, only: [:create, :index] do
-      resources :users_messages, only: [:create, :index]
+    resources :users_conversations, only: [:create, :index, :show] do
+      resources :users_messages, only: [:create]
     end
   end
   
@@ -22,5 +24,7 @@ Rails.application.routes.draw do
       post :confirm
     end
   end
+  
+  resources :tops, only: [:index]
   
 end

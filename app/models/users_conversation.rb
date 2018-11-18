@@ -15,7 +15,6 @@ class UsersConversation < ApplicationRecord
     where("users_conversations.sender_id = ? OR users_conversations.recipient_id = ?", my_id, my_id)
   end
   
-  
   def target_user(current_user)
     if sender_id == current_user.id
       User.find(recipient_id)

@@ -1,0 +1,16 @@
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
+  <% end %>
+</ul>
+
+<div class="jumbotron message sticky-top">
+  <h1 class="text-white"><%= @partner.name %>さんとの会話</h1>
+  <hr class="my-4">
+  
+  <%= render partial: 'users_messages/form', locals: { user: @user, conversation: @conversation, message: @message } %>
+</div>
+
+<div id="messages_index">
+  <%= render partial: 'users_messages/index', locals: { user: @user, conversation: @conversation, messages: @messages } %>
+</div>

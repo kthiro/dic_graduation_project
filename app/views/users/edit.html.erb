@@ -1,57 +1,95 @@
-<h1>Users#edit</h1>
+<% if flash %>
+  <ul>
+    <% flash.each do |key, value| %>
+      <li><%= value %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="jumbotron user">
+  <h1 class="text-white">ユーザー情報の編集</h1>
+  <hr class="my-4">
+</div>
 
 <%= form_with(model: @user, local: true) do |f| %>
 
-   <% if flash %>
-    <% flash.each do |key, value| %>
-      <p><%= key %>:<%= value %></p>
-    <% end %>
-  <% end %>
-
   <% if @user.errors.any? %>
-    <p><%= @user.errors.count %>件のエラーがあります。</p>
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div class="alert alert-danger" role="alert">
+      <p><%= @user.errors.count %>件のエラーがあります。</p>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-  
-  <%= f.label 'ユーザーネーム' %>
-  <%= f.text_field :name %>
-  
-  <%= f.label 'メールアドレス' %>
-  <%= f.text_field :email %>
-  
-  <%= f.label 'パスワード' %>
-  <%= f.text_field :password %>
-
-  <%= f.label 'パスワードの確認' %>
-  <%= f.text_field :password_confirmation %>
-
-  <%= f.label 'プロフィール画像' %>
-  <% if @user.profile_image.url %>
-    <%= image_tag(@user.profile_image.url) %>
-    <%= f.hidden_field :profile_image_cache %>
-    <p>別の画像を登録する場合は選択してください。</p>
-  <% end %>
-  <%= f.file_field :profile_image %>
-  
-  <%= f.label 'スポーツ種目' %>
-  <%= f.text_field :sport_event %>
-  
-  <%= f.label '種目の経験年数' %>
-  <%= f.select :sport_event_career, User.sport_event_careers.keys %>
-  
-  <%= f.label '活動希望地域' %>
-  <%= f.text_field :area %>
-  
-  <%= f.label '性別' %>
-  <%= f.select :sex, User.sexes.keys %>
-  
-  <%= f.label '自己紹介' %>
-  <%= f.text_field :introduction %>
-  
-  <%= f.submit '編集完了' %>
+    
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card-group">
+          <div class="card shadow">
+            <% if @user.profile_image.url %>
+              <%= image_tag(@user.profile_image.url, class: "card-img-top", alt: "Card image cap") %>
+              <%= f.hidden_field :profile_image_cache %>
+            <% end %>
+              
+            <div class="card-body">
+              <div class="card-text">
+                <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <td><%= f.label :profile_image, 'プロフィール画像を変更する場合は選択' %></td>
+                      <td><%= f.file_field :profile_image %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :name, 'ユーザーネーム' %></td>
+                      <td><%= f.text_field :name, class: "form-control", placeholder: "ユーザーネームを記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :sport_event, 'スポーツ種目' %></td>
+                      <td><%= f.text_field :sport_event, class: "form-control", placeholder: "スポーツ種目を記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :sport_event_career, '種目の経験年数' %></td>
+                      <td><%= f.select :sport_event_career, User.sport_event_careers.keys, class: "form-control" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :area, '活動地域' %></td>
+                      <td><%= f.text_field :area, class: "form-control", placeholder: "活動地域を記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :sex, '性別' %></td>
+                      <td><%= f.select :sex, User.sexes.keys, class: "form-control" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :introduction, '自己紹介' %></td>
+                      <td><%= f.text_area :introduction, class: "form-control", placeholder: "自己紹介を記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :email, 'メールアドレス' %></td>
+                      <td><%= f.text_field :email, class: "form-control", placeholder: "メールアドレスを記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :password, 'パスワード（変更する場合のみ記入。変更しない場合は空欄のまま。）' %></td>
+                      <td><%= f.text_field :password, class: "form-control" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :password, 'パスワードの再入力（変更する場合のみ記入。変更しない場合は空欄のまま。）' %></td>
+                      <td><%= f.text_field :password_confirmation, class: "form-control" %></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr class="my-4">
+                <div class="text-center">
+                  <%= f.submit '編集完了', class: "btn btn-outline-info" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <% end %>

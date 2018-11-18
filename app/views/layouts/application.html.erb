@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset = "utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sportweb</title>
     <%= csrf_meta_tags %>
 
@@ -9,16 +11,61 @@
   </head>
 
   <body>
-    <% if logged_in? %>
-      <%= link_to 'ログアウト', session_path(current_user.id), method: :delete, data: { confirm: 'ログアウトしますか?' } %>
-    <% else %>
-      <%= link_to 'ログイン', new_session_path %>
-    <% end %>
-    
-    <% if administering? %>
-      <p><%= current_team.name %>を管理中です。<%= link_to 'チーム管理を終了する', session_path(current_user.id, administering_team_id: current_team.id), method: :delete %></p>
-    <% end %>
-    
+    <header>
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <%= link_to 'Sportweb', tops_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <% if logged_in? %>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/tops">ホーム <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'マイプロフィール', user_path(current_user.id), class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'チーム検索', teams_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'ユーザー検索', users_path, class: "nav-link" %>
+              </li>
+              <% if administering? %>
+                <li class="nav-item">
+                  <%= link_to "#{current_team.name}の管理を終了", session_path(current_user.id, administering_team_id: current_team.id), method: :delete, class: "nav-link" %>
+                </li>
+              <% end %>
+              <li class="nav-item">
+                <%= link_to 'ログアウト', session_path(current_user.id), method: :delete, data: { confirm: 'ログアウトしますか?' }, class: "nav-link" %>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/tops">ホーム <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'ログイン', new_session_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to '利用開始登録', new_user_path, class: "nav-link" %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </nav>
+      <br><br><br>
+    </header>
+
     <%= yield %>
+    
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">Sportweb</span>
+      </div>
+    </footer>
+    
   </body>
 </html>

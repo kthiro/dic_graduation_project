@@ -1,21 +1,42 @@
-<h1>Followers#index</h1>
-
-<%= link_to 'マイプロフィール', user_path(current_user.id) %>
-
-<table>
-  <tr>
-    <th>PROFILE_IMAGE</th>
-    <th>NAME</th>
-    <th>SPORT_EVENT</th>
-    <th>会話するリンク</th>
-  </tr>
-  
-  <% @followers.each do |follower| %>
-    <tr>
-      <td><%= image_tag(follower.profile_image.url) if follower.profile_image.url %></td>
-      <td><%= follower.name %></td>
-      <td><%= follower.sport_event %></td>
-      <td><%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: follower.id), method: :post %></td>
-    </tr>
+<ul>
+  <% flash.each do |key, value| %>
+    <li><%= value %></li>
   <% end %>
-</table>
+</ul>
+
+<div class="jumbotron user">
+  <h1 class="text-white">フォロワー一覧</h1>
+  <p class="lead text-white">あなたをフォローしているユーザーの一覧です。</p>
+  <hr class="my-4">
+</div>
+
+<div class="container-fluid">
+  <div class="card-group">
+    <% @followers.each do |follower| %>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card sm-6 mb-4 lg-3 shadow">
+          <%= image_tag(follower.profile_image.url, class: "card-img-top", alt: "Card image cap") if follower.profile_image.url %>
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <%= follower.name %>♥<small><%= follower.sport_event %></small>@<small><%= follower.area %></small>
+            </h5>
+            <hr class="my-4">
+            <div class="card-text">
+              <%= follower.introduction %>
+              <hr class="my-4">
+              <div class="btn-group">
+                <% relationship = @relationships.find_by(leader_id: follower.id) %>
+                <% if relationship %>
+                  <%= link_to 'フォロー解除', relationship_path(relationship.id), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
+                <% else %>
+                  <%= link_to 'フォローする', relathionships_path(leader_id: user.id), method: :post, class: "btn btn-outline-primary byn-sm" %>
+                <% end %>
+                <%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: follower.id), method: :post, class: "btn btn-outline-success btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
