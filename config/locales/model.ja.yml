@@ -1,0 +1,55 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+      team: "チーム"
+      users_conversation: "会話"
+      users_message: "メッセージ"
+      relationship: "つながり"
+      team_administrator: "チーム管理者"
+    attributes:
+      user:
+        name: "ユーザーネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+        profile_image: "プロフィール画像"
+        sport_event: "スポーツ種目"
+        sport_event_career: "種目の経験年数"
+        area: "活動希望地域"
+        sex: "性別"
+        introduction: "自己紹介"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      team:
+        name: "チーム名"
+        sport_event: "スポーツ種目"
+        area: "活動地域"
+        number_of_member: "メンバーの人数"
+        profile_image: "プロフィール画像"
+        introduction: "チーム紹介"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      users_conversation:
+        sender_id: "送信者のユーザーID"
+        recipient_id: "受信者のユーザーID"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      users_message:
+        body: "メッセージ内容"
+        users_coversation: "メッセージが紐づく会話ID"
+        user: "メッセージ作成者のユーザーID"
+        read: "既読または未読"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      relationship:
+        follower_id: "フォローした側のユーザーID"
+        leader_id: "フォローされた側のユーザーID"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+      team_administrator:
+        user: "チーム管理者のユーザーID"
+        team: "管理対象のチームID"
+        created_at: "作成日時"
+        updated_at: "更新日時"
+
