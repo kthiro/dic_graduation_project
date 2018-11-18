@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  
+  before_action :unlogged_in, except: [:new, :create]
+  
   def new
   end
   

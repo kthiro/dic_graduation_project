@@ -1,27 +1,60 @@
-<h1>Users#confirm</h1>
+<% if flash %>
+  <ul>
+    <% flash.each do |key, value| %>
+      <li><%= value %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="jumbotron user">
+  <h1 class="text-white">ユーザー新規登録</h1>
+  <hr class="my-4">
+</div>
 
 <%= form_with(model: @user, local: true) do |f| %>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>ユーザーネーム</td>
+              <td><%= @user.name %></td>
+            </tr>
+            <tr>
+              <td>メールアドレス</td>
+              <td><%= @user.email %></td>
+            </tr>
+            <tr>
+              <td>パスワード</td>
+              <td>セキュリティ保護のため表示されません</td>
+            </tr>
+          </tbody>
+        </table>
 
-  <p>ユーザーネーム：<%= @user.name %></p>
-  <p>メールアドレス：<%= @user.email %></p>
-  <p>パスワード：<%= @user.password %></p>
-
-  <%= f.hidden_field :name %>
-  <%= f.hidden_field :email %>
-  <%= f.hidden_field :password %>
-  <%= f.hidden_field :password_confirmation %>
-  
-  <%= f.submit '登録する' %>
-  
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :email %>
+        <%= f.hidden_field :password %>
+        <%= f.hidden_field :password_confirmation %>
+        
+        <div class="text-center">
+          <div class="btn-group">
+            <%= f.submit '登録する', class: "btn btn-outline-primary btn-sm" %>
 <% end %>
 
-<%= form_with(model: @user, url: new_user_path, method: :get, local: true) do |f| %>
+            <%= form_with(model: @user, url: new_user_path, method: :get, local: true) do |f| %>
 
-  <%= f.hidden_field :name %>
-  <%= f.hidden_field :email %>
-  <%= f.hidden_field :password %>
-  <%= f.hidden_field :password_confirmation %>
+              <%= f.hidden_field :name %>
+              <%= f.hidden_field :email %>
+              <%= f.hidden_field :password %>
+              <%= f.hidden_field :password_confirmation %>
   
-  <%= f.submit '戻る', name: 'back' %>
+              <%= f.submit '戻る', name: 'back', class: "btn btn-outline-secondary btn-sm" %>
   
-<% end %>
+            <% end %>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>

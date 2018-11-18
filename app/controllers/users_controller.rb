@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, :unmatching_id, only: [:show, :edit, :update, :destroy]
+  before_action :unlogged_in, except: [:new, :confirm, :create]
+  
   
   def new
     if params[:back]

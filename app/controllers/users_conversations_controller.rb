@@ -1,4 +1,7 @@
 class UsersConversationsController < ApplicationController
+  
+  before_action :set_users_conversation, only: [:show]
+  before_action :unlogged_in, :unmatching_id
 
   def create
     if UsersConversation.find_by(sender_id: current_user.id, recipient_id: params[:recipient_id]) || UsersConversation.find_by(sender_id: params[:recipient_id], recipient_id: current_user.id)
@@ -14,10 +17,29 @@ class UsersConversationsController < ApplicationController
     @conversations = UsersConversation.my_users_conversations(current_user.id).order("updated_at DESC")
   end
   
+  def show
+    set_partner
+    @message = @conversation.users_messages.build
+    @messages = @conversation.users_messages.order("created_at DESC")
+  end
+  
   private
   
   def users_conversation_params
     params.permit(:recipient_id)
+  end
+  
+  def set_users_conversation
+    @user = current_user
+    @conversation = UsersConversation.find(params[:id])
+  end
+  
+  def set_partner
+    if @conversation.sender_id == current_user.id
+      @partner = User.find(@conversation.recipient_id)
+    elsif @conversation.recipient_id == current_user.id
+      @partner = User.find(@conversation.sender_id)
+    end
   end
   
 end

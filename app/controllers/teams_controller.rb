@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :unlogged_in
   
   def new
     if params[:back]
@@ -20,8 +21,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if @team.save
       profile_image_retrieves_from_cache
-      redirect_to team_path(@team.id)
       @team.team_administrators.create!(user_id: current_user.id)
+      redirect_to team_path(@team.id, team_administrator_id: current_user.id)
     else
       render 'new'
     end

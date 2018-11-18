@@ -1,44 +1,74 @@
-<ul>
-  <% flash.each do |key, value| %>
-    <li><%= value %></li>
-  <% end %>
-</ul>
+<% if flash %>
+  <ul>
+    <% flash.each do |key, value| %>
+      <li><%= value %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= form_with(model: @team, url: choose_new_or_edit, local: true) do |f| %>
 
   <% if @team.errors.any? %>
-    <p><%= @team.errors.count %>件のエラーがあります。</p>
-    <ul>
-      <% @team.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div class="alert alert-danger" role="alert">
+      <p><%= @team.errors.count %>件のエラーがあります。</p>
+      <ul>
+        <% @team.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-  <br>
-  
-  <%= f.label :name, 'チーム名' %>
-  <%= f.text_field :name %>
-  <br>
-  <%= f.label :sport_event, 'チームが行っているスポーツの種目' %>
-  <%= f.text_field :sport_event %>
-  <br>
-  <%= f.label :area, '活動地域のキーワード' %>
-  <%= f.text_field :area %>
-  <br>
-  <%= f.label :number_of_member, 'チームに所属しているメンバーの数' %>
-  <%= f.number_field :number_of_member %>名
-  <br>
-  <%= f.label :profile_image, 'プロフィール画像' %>
-  <% if @team.profile_image.url %>
-    <%= image_tag(@team.profile_image.url) %>
-    <%= f.hidden_field :profile_image_cache %>
-    <p>別の画像を登録する場合は選択してください。</p>
-  <% end %>
-  <%= f.file_field :profile_image %>
-  <br>
-  <%= f.label :introduction, 'チーム紹介' %>
-  <%= f.text_area :introduction %>
-  <br><br>
-  <%= f.submit '登録する' %>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card-group">
+          <div class="card shadow">
+            <% if @team.profile_image.url %>
+              <%= image_tag(@team.profile_image.url) %>
+              <%= f.hidden_field :profile_image_cache %>
+            <% end %>
+            
+            <div class="card-body">
+              <div class="card-text">
+                <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <td><%= f.label :profile_image, 'プロフィール画像を選択' %></td>
+                      <td><%= f.file_field :profile_image %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :name, 'チーム名' %></td>
+                      <td><%= f.text_field :name, class: "form-control", placeholder: "チーム名を記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :sport_event, 'スポーツ種目' %></td>
+                      <td><%= f.text_field :sport_event, class: "form-control", placeholder: "チームのスポーツ種目を記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :area, '活動地域' %></td>
+                      <td><%= f.text_field :area, class: "form-control", placeholder: "活動地域を記入" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :number_of_member, '所属しているメンバーの数' %></td>
+                      <td><%= f.number_field :number_of_member, class: "form-control" %></td>
+                    </tr>
+                    <tr>
+                      <td><%= f.label :introduction, 'チーム紹介' %></td>
+                      <td><%= f.text_area :introduction, class: "form-control", placeholder: "チーム紹介を記入" %></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr class="my-4">
+                <div class="text-center">
+                  <%= f.submit '登録', class: "btn btn-outline-warning" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
 <% end %>

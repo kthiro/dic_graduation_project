@@ -1,29 +1,37 @@
-<h1>Leaders#index</h1>
-
-<%= link_to 'マイプロフィール', user_path(current_user.id) %>
-
 <ul>
   <% flash.each do |key, value| %>
     <li><%= value %></li>
   <% end %>
 </ul>
 
-<table>
-  <tr>
-    <th>PROFILE_IMAGE</th>
-    <th>NAME</th>
-    <th>SPORT_EVENT</th>
-    <th>フォロー解除リンク</th>
-    <th>会話するリンク</th>
-  </tr>
-  
-  <% @leaders.each do |leader| %>
-    <tr>
-      <td><%= image_tag(leader.profile_image.url) if leader.profile_image.url %></td>
-      <td><%= leader.name %></td>
-      <td><%= leader.sport_event %></td>
-      <td><%= link_to 'フォロー解除', relationship_path(leader.id, name: 'leaders'), method: :delete %></td>
-      <td><%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: leader.id), method: :post %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="jumbotron user">
+  <h1 class="text-white">フォロー一覧</h1>
+  <p class="lead text-white">あなたがフォローしているユーザーの一覧です。</p>
+  <hr class="my-4">
+</div>
+
+<div class="container-fluid">
+  <div class="card-group">
+    <% @leaders.each do |leader| %>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card sm-6 mb-4 lg-3 shadow">
+          <%= image_tag(leader.profile_image.url, class: "card-img-top", alt: "Card image cap") if leader.profile_image.url %>
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <%= leader.name %>♥<small><%= leader.sport_event %></small>@<small><%= leader.area %></small>
+            </h5>
+            <hr class="my-4">
+            <div class="card-text">
+              <%= leader.introduction %>
+              <hr class="my-4">
+              <div class="btn-group">
+                <%= link_to 'フォロー解除', relationship_path(leader.id, name: 'users'), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
+                <%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: leader.id), method: :post, class: "btn btn-outline-success btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

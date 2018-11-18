@@ -1,0 +1,21 @@
+<ul class="list-group-flush container-fluid ">
+  <% messages.each do |message| %>
+    <% user = User.find(message.user_id) %>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-3">
+          <%= image_tag(user.profile_image.url, class: "img-fluid rounded", alt: "Responsive image") if user.profile_image.url %>
+        </div>
+        <div class="col-9">
+          <div class="text-left">
+            <strong><%= user.name %></strong>
+            <em class="text-secondary"><small><%= message.message_time %></small></em>
+          </div>
+          <div class="col-12 text-left">
+            <%= message.body %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
