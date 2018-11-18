@@ -3,18 +3,33 @@
     <% user = User.find(message.user_id) %>
     <li class="list-group-item">
       <div class="row">
-        <div class="col-3">
-          <%= image_tag(user.profile_image.url, class: "img-fluid rounded", alt: "Responsive image") if user.profile_image.url %>
-        </div>
-        <div class="col-9">
-          <div class="text-left">
-            <strong><%= user.name %></strong>
-            <em class="text-secondary"><small><%= message.message_time %></small></em>
+        <% if user.id == current_user.id %>
+          <div class="col-9 bg-secondary rounded">
+            <div class="text-left">
+              <strong><%= user.name %></strong>
+              <em><small><%= message.message_time %></small></em>
+            </div>
+            <div class="col-12 text-left text-white">
+              <%= message.body %>
+            </div>
           </div>
-          <div class="col-12 text-left">
-            <%= message.body %>
+          <div class="col-3">
+            <%= image_tag(user.profile_image.url, class: "img-fluid rounded", alt: "Responsive image") if user.profile_image.url %>
           </div>
-        </div>
+        <% else %>
+          <div class="col-3">
+            <%= image_tag(user.profile_image.url, class: "img-fluid rounded", alt: "Responsive image") if user.profile_image.url %>
+          </div>
+          <div class="col-9 bg-primary rounded ">
+            <div class="text-left">
+              <strong><%= user.name %></strong>
+              <em><small><%= message.message_time %></small></em>
+            </div>
+            <div class="col-12 text-left text-white">
+              <%= message.body %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </li>
   <% end %>

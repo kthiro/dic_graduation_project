@@ -16,22 +16,27 @@
   <% @conversations.each do |conversation| %>
 
     <% if conversation.sender_id == current_user.id %>
-      <% user = User.find(conversation.recipient_id) %>
+      <% partner = User.find(conversation.recipient_id) %>
     <% elsif conversation.recipient_id == current_user.id %>
-      <% user = User.find(conversation.sender_id) %>
+      <% partner = User.find(conversation.sender_id) %>
     <% end %>
     
     <li class="list-group-item">
       <div class="row">
         <div class="col-3">
-          <%= image_tag(user.profile_image.url, class: "img-fluid rounded", alt: "Responsive image") if user.profile_image.url %>
+          <%= image_tag(partner.profile_image.url, class: "img-fluid rounded", alt: "Responsive image") if partner.profile_image.url %>
         </div>
         <div class="col-9">
           <div class="text-left">
-            <strong><%= link_to "#{user.name}さんと会話する", user_users_conversation_path(current_user.id, conversation.id) %></strong>
+            <strong><%= link_to "#{partner.name}さんと会話する", user_users_conversation_path(current_user.id, conversation.id) %></strong>
             <br>
             <div class="col-12 text-secondary">
-              <%= conversation.users_messages.order("updated_at DESC").first.body[0, 30] + "・・・"%>
+              <% latest_message = conversation.users_messages.order("updated_at DESC").first %>
+              <% if latest_message %>
+                <%= latest_message.body[0, 30] + "・・・" %>
+              <% else %>
+                <%= partner.name %>さんとのメッセージはまだありません。
+              <% end %>
             </div>
           </div>
         </div>

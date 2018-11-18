@@ -9,7 +9,7 @@ class UsersConversationsController < ApplicationController
     else
       @conversation = current_user.sending_users_conversations.create!(users_conversation_params)
     end
-    redirect_to user_users_conversation_users_messages_path(current_user.id, @conversation.id)
+    redirect_to user_users_conversation_path(current_user.id, @conversation.id)
 
   end
 
