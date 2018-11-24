@@ -1,5 +1,5 @@
 30.times do |n|
-  name = "user#{n + 1}"
+  name = "user#{n + 11}"
   email = "#{name}@mail.com"
   password = "useruser"
   password_confirmation = "useruser"
@@ -19,7 +19,7 @@
 end
 
 30.times do |n|
-  name = "team#{n + 1}"
+  name = "team#{n + 11}"
   sport_event = "#{%w(水球 テニス ゴルフ サッカー 野球 シーカヤック バスケットボール ジェットスキー ラフティング サッカー 野球観戦 ヨガ 陸上 パラグライダー 
                       アメリカンフットボール ラグビー 競馬 ボーリング カーリング ダーツ ボブスレー サーフィン 卓球 相撲 バドミントン ビーチバレー ランニング 
                       釣り トレッキング 水泳 )[n]}"
@@ -35,8 +35,12 @@ end
 end
 
 30.times do |n|
-  user_id = n + 1
-  team_id = 30 - n
+  user = User.find_by(name: user11)
+  team = Team.find_by(name: team11)
+  a = user.id
+  b = team.id
+  user_id = n + a
+  team_id = n + b
   
   TeamAdministrator.create!(user_id: user_id, team_id: team_id)
 
