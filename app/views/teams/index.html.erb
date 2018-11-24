@@ -38,7 +38,11 @@
           <%= image_tag(team.profile_image.url, class: "card-img-top", alt: "Card image cap") if team.profile_image.url %>
           <div class="card-body">
             <h5 class="card-title text-center">
-              <%= team.name %>♥<small><%= team.sport_event %></small>@<small><%= team.area %></small>
+              <%= team.name %>
+              <br>
+              ♥<small><%= team.sport_event %></small>
+              <br>
+              @<small><%= team.area %></small>
             </h5>
             <hr class="my-4">
             <div class="card-text text-center">

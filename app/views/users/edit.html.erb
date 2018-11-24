@@ -48,7 +48,7 @@
                     </tr>
                     <tr>
                       <td><%= f.label :sport_event, 'スポーツ種目' %></td>
-                      <td><%= f.text_field :sport_event, class: "form-control", placeholder: "スポーツ種目を記入" %></td>
+                      <td><%= f.text_field :sport_event, class: "form-control", placeholder: "スポーツ種目を記入", id: "sport_event" %></td>
                     </tr>
                     <tr>
                       <td><%= f.label :sport_event_career, '種目の経験年数' %></td>
@@ -56,7 +56,7 @@
                     </tr>
                     <tr>
                       <td><%= f.label :area, '活動希望地域' %></td>
-                      <td><%= f.text_field :area, class: "form-control", placeholder: "活動希望地域を記入" %></td>
+                      <td><%= f.text_field :area, class: "form-control", placeholder: "活動希望地域を記入", id: "area" %></td>
                     </tr>
                     <tr>
                       <td><%= f.label :sex, '性別' %></td>
@@ -64,19 +64,27 @@
                     </tr>
                     <tr>
                       <td><%= f.label :introduction, '自己紹介' %></td>
-                      <td><%= f.text_area :introduction, class: "form-control", placeholder: "自己紹介を記入" %></td>
+                      <td><%= f.text_area :introduction, class: "form-control", placeholder: "自己紹介を記入", id: "introduction" %></td>
                     </tr>
                     <tr>
                       <td><%= f.label :email, 'メールアドレス' %></td>
                       <td><%= f.text_field :email, class: "form-control", placeholder: "メールアドレスを記入" %></td>
                     </tr>
                     <tr>
-                      <td><%= f.label :password, 'パスワード（変更する場合のみ記入。変更しない場合は空欄のまま。）' %></td>
-                      <td><%= f.text_field :password, class: "form-control" %></td>
+                      <td><%= f.label :password, 'パスワード' %></td>
+                      <td>
+                        <small class="text-danger">変更する場合のみ記入し、変更しない場合は空欄のまま登録して下さい。</small>
+                        <%= f.password_field :password, class: "form-control", id: "password" %>
+                        <small class="text-info", id="password_validation">パスワードは8文字以上で設定して下さい。</small>
+                      </td>
                     </tr>
                     <tr>
-                      <td><%= f.label :password, 'パスワードの再入力（変更する場合のみ記入。変更しない場合は空欄のまま。）' %></td>
-                      <td><%= f.text_field :password_confirmation, class: "form-control" %></td>
+                      <td><%= f.label :password, 'パスワードの再入力' %></td>
+                      <td>
+                        <small class="text-danger">変更する場合のみ記入し、変更しない場合は空欄のまま登録して下さい。</small>
+                        <%= f.password_field :password_confirmation, class: "form-control", id: "password_confirmation" %>
+                        <small class="text-info", id="password_confirmation_validation">パスワードが一致しません。</small>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -93,3 +101,5 @@
   </div>
 
 <% end %>
+
+<%= javascript_include_tag "users.js" %>

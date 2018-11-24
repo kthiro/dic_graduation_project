@@ -47,17 +47,4 @@
   </div>
 </div>
 
-<script>
-  $(function() {
-    $("body").css('background-color', '#8EECA1');
-  });
-</script>
-
-<script>
-  $(function() {
-    $(".card-body").hide();
-    $(".card-header").on('click', function(){
-      $(this).next(".card-body").slideToggle();
-    });
-  });
-</script>
+<%= javascript_include_tag "tops.js" %>

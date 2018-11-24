@@ -27,9 +27,9 @@
               <div class="btn-group">
                 <% relationship = @relationships.find_by(leader_id: follower.id) %>
                 <% if relationship %>
-                  <%= link_to 'フォロー解除', relationship_path(relationship.id), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
+                  <%= link_to 'フォロー解除', relationship_path(relationship.id, name: 'followers'), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
                 <% else %>
-                  <%= link_to 'フォローする', relathionships_path(leader_id: user.id), method: :post, class: "btn btn-outline-primary byn-sm" %>
+                  <%= link_to 'フォローする', relationships_path(leader_id: follower.id, name: 'followers'), method: :post, class: "btn btn-outline-primary btn-sm" %>
                 <% end %>
                 <%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: follower.id), method: :post, class: "btn btn-outline-success btn-sm" %>
               </div>

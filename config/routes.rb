@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'tops/index'
-
   resources :users do
     collection do
       post :confirm
@@ -25,6 +23,6 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :tops, only: [:index]
+  root :to => 'tops#index'
   
 end
