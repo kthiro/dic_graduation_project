@@ -25,7 +25,8 @@
               <%= leader.introduction %>
               <hr class="my-4">
               <div class="btn-group">
-                <%= link_to 'フォロー解除', relationship_path(leader.id, name: 'users'), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
+                <% relationship = @relationships.find_by(leader_id: leader.id) %>
+                <%= link_to 'フォロー解除', relationship_path(relationship.id, name: 'leaders'), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
                 <%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: leader.id), method: :post, class: "btn btn-outline-success btn-sm" %>
               </div>
             </div>

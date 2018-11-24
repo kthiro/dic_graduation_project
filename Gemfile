@@ -33,6 +33,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'carrierwave', '~> 1.2.3'
 gem 'mini_magick', '~> 4.9.2'
 gem 'ransack', '~> 2.1.0'
+gem 'faker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -43,6 +44,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'dotenv-rails'
 end
 
 group :development do

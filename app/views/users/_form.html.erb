@@ -26,11 +26,17 @@
             </tr>
             <tr>
               <td class="text-center"><%= f.label :password, 'パスワード' %></td>
-              <td><%= f.password_field :password, class: "form-control", placeholder: "パスワードを設定し記入" %></td>
+              <td>
+                <%= f.password_field :password, class: "form-control", placeholder: "パスワードを設定し記入", id: "password" %>
+                <small class="text-info", id="password_validation">パスワードは8文字以上で設定して下さい。</small>
+              </td>
             </tr>
             <tr>
               <td class="text-center"><%= f.label :password, 'パスワードの再入力' %></td>
-              <td><%= f.password_field :password_confirmation, class: "form-control", placeholder: "確認のためパスワードを再記入" %></td>
+              <td>
+                <%= f.password_field :password_confirmation, class: "form-control", placeholder: "確認のためパスワードを再記入", id: "password_confirmation" %>
+                <small class="text-info", id="password_confirmation_validation">パスワードが一致しません。</small>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -43,3 +49,5 @@
   </div>
 
 <% end %>
+
+<%= javascript_include_tag "users.js" %>

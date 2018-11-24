@@ -4,6 +4,7 @@ class LeadersController < ApplicationController
   
   def index
     @leaders = current_user.leaders
+    @relationships = current_user.active_relationships
   end
   
 end

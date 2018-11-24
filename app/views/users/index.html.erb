@@ -33,22 +33,27 @@
           <%= image_tag(user.profile_image.url, class: "card-img-top", alt: "Card image cap") if user.profile_image.url %>
           <div class="card-body">
             <h5 class="card-title text-center">
-              <%= user.name %>♥<small><%= user.sport_event %></small>@<small><%= user.area %></small>
+              <%= user.name %>
+              <br>
+              ♥<small><%= user.sport_event %></small>
+              <br>
+              @<small><%= user.area %></small>
             </h5>
             <hr class="my-4">
             <div class="card-text">
               <%= user.introduction %>
               <hr class="my-4">
+              <% relationship = @relationships.find_by(leader_id: user.id) %>
               <% if user.id == current_user.id %>
                 <%= link_to 'マイプロフィール', user_path(user.id), class: "btn btn-outline-danger btn-sm" %>
-              <% elsif @relationships.find_by(leader_id: user.id) %>
+              <% elsif relationship %>
                 <div class="btn-group">
-                  <%= link_to 'フォロー解除', relationship_path(user.id, name: 'users'), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
+                  <%= link_to 'フォロー解除', relationship_path(relationship.id, name: 'users'), method: :delete, class: "btn btn-outline-secondary btn-sm" %>
                   <%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: user.id), method: :post, class: "btn btn-outline-success btn-sm" %>
                 </div>
               <% else %>
                 <div class="btn-group">
-                  <%= link_to 'フォローする', relationships_path(leader_id: user.id), method: :post, class: "btn btn-outline-primary btn-sm" %>
+                  <%= link_to 'フォローする', relationships_path(leader_id: user.id, name: 'users'), method: :post, class: "btn btn-outline-primary btn-sm" %>
                   <%= button_to '会話する', user_users_conversations_path(current_user.id, recipient_id: user.id), method: :post, class: "btn btn-outline-success btn-sm" %>
                 </div>
               <% end %>
