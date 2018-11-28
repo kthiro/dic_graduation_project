@@ -51,7 +51,6 @@ class TeamsController < ApplicationController
     redirect_to user_path(current_user.id)
   end
   
-  
   private
   
   def team_params
