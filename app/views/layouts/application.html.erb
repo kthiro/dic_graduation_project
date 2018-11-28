@@ -27,14 +27,29 @@
                 <%= link_to 'マイプロフィール', user_path(current_user.id), class: "nav-link" %>
               </li>
               <li class="nav-item">
+                <% conversations = UsersConversation.my_users_conversations(current_user.id) %>
+                <% all_unread_messages = 0 %>
+                <% conversations.each do |conversation| %>
+                  <% unread_messages = conversation.users_messages.where.not(user_id: current_user.id).where(read: false).count %>
+                  <% all_unread_messages = all_unread_messages + unread_messages %>
+                <% end %>
+                <% if all_unread_messages == 0 %>
+                  <%= link_to "#{all_unread_messages}", user_users_conversations_path(current_user.id), class: "nav-link badge badge-pill badge-secondary", id: "all_unread_messages" %>
+                  <br><small class="text-info" id="notification">未読メッセージはありません。</small>
+                <% else %>
+                  <%= link_to "#{all_unread_messages}", user_users_conversations_path(current_user.id), class: "nav-link badge badge-pill badge-danger", id: "all_unread_messages" %>
+                  <br><small class="text-info" id="notification"><%= all_unread_messages %>件の未読メッセージがあります。</small>
+                <% end %>
+              </li>
+              <li class="nav-item">
                 <%= link_to 'チーム検索', teams_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
                 <%= link_to 'ユーザー検索', users_path, class: "nav-link" %>
               </li>
               <% if administering? %>
-                <li class="nav-item text-center">
-                  <small class="text-warning"><%= current_team.name %>の管理中です。</small>
+                <li class="nav-item">
+                  <small class="text-danger"><%= current_team.name %>を管理中</small>
                   <small>
                     <%= link_to "管理を終える", session_path(current_user.id, administering_team_id: current_team.id), method: :delete, class: "nav-link" %>
                   </small>
@@ -69,6 +84,8 @@
         <span class="text-muted">Sportweb</span>
       </div>
     </footer>
+    
+    <%= javascript_include_tag "application.js" %>
     
   </body>
 </html>

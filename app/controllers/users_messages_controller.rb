@@ -11,6 +11,7 @@ class UsersMessagesController < ApplicationController
     
     if @message.save
       respond_to do |format|
+        @conversation.update(latest_message: @message.created_at)
         format.js { render :index }
       end
     else
