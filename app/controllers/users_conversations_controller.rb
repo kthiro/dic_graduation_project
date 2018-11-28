@@ -21,6 +21,7 @@ class UsersConversationsController < ApplicationController
     set_partner
     @message = @conversation.users_messages.build
     @messages = @conversation.users_messages.order("created_at DESC")
+    @messages.where.not(user_id: current_user.id).update_all(read: true) if @messages.first
   end
   
   private

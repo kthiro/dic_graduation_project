@@ -8,63 +8,65 @@
 <%= form_with(model: @team, local:true) do |f| %>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card-group">
-          <div class="card shadow">
-            <% if @team.profile_image.url %>
-              <%= image_tag(@team.profile_image.url, class: "card-img-top", alt: "Card image cap") %>
-              <%= f.hidden_field :profile_image_cache %>
-            <% end %>
+      <div class="col-md-8 row justify-content-center">
+        <div class="col-sm-7">
+          <div class="card-group justify-content-center">
+            <div class="card shadow">
+              <% if @team.profile_image.url %>
+                <%= image_tag(@team.profile_image.url, class: "card-img-top", alt: "Card image cap") %>
+                <%= f.hidden_field :profile_image_cache %>
+              <% end %>
             
-            <div class="card-body">
-              <div class="card-text">
-                <table class="table table-hover">
-                  <tbody>
-                    <tr>
-                      <td>チーム名</td>
-                      <td><%= @team.name %></td>
-                    </tr>
-                    <tr>
-                      <td>スポーツ種目</td>
-                      <td><%= @team.sport_event %></td>
-                    </tr>
-                    <tr>
-                      <td>活動地域</td>
-                      <td><%= @team.area %></td>
-                    </tr>
-                    <tr>
-                      <td>所属しているメンバーの数</td>
-                      <td><%= @team.number_of_member %>人</td>
-                    </tr>
-                    <tr>
-                      <td>チーム紹介</td>
-                      <td><%= @team.introduction %></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr class="my-4">
+              <div class="card-body">
+                <div class="card-text">
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <td>チーム名</td>
+                        <td><%= @team.name %></td>
+                      </tr>
+                      <tr>
+                        <td>スポーツ種目</td>
+                        <td><%= @team.sport_event %></td>
+                      </tr>
+                      <tr>
+                        <td>活動地域</td>
+                        <td><%= @team.area %></td>
+                      </tr>
+                      <tr>
+                        <td>所属しているメンバーの数</td>
+                        <td><%= @team.number_of_member %>人</td>
+                      </tr>
+                      <tr>
+                        <td>チーム紹介</td>
+                        <td><%= @team.introduction %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr class="my-4">
                 
-                <%= f.hidden_field :name %>
-                <%= f.hidden_field :sport_event %>
-                <%= f.hidden_field :area %>
-                <%= f.hidden_field :number_of_member %>
-                <%= f.hidden_field :profile_image_cache if @team.profile_image.url %>
-                <%= f.hidden_field :introduction %>
+                  <%= f.hidden_field :name %>
+                  <%= f.hidden_field :sport_event %>
+                  <%= f.hidden_field :area %>
+                  <%= f.hidden_field :number_of_member %>
+                  <%= f.hidden_field :profile_image_cache if @team.profile_image.url %>
+                  <%= f.hidden_field :introduction %>
 
-                <div class="text-center">
-                  <div class="btn-group">
-                    <%= f.submit '登録', class: "btn btn-outline-warning btn-sm" %>
+                  <div class="text-center">
+                    <div class="btn-group">
+                      <%= f.submit '登録', class: "btn btn-outline-warning btn-sm" %>
 <% end %>
           
-                    <%= form_with(model: @team, url: new_team_path, method: :get, local: true) do |f| %>
-                      <%= f.hidden_field :name %>
-                      <%= f.hidden_field :sport_event %>
-                      <%= f.hidden_field :area %>
-                      <%= f.hidden_field :number_of_member %>
-                      <%= f.hidden_field :profile_image_cache if @team.profile_image.url %>
-                      <%= f.hidden_field :introduction %>
-                      <%= f.submit '戻る', name: 'back', class: "btn btn-outline-secondary btn-sm" %>
-                    <% end %>
+                      <%= form_with(model: @team, url: new_team_path, method: :get, local: true) do |f| %>
+                        <%= f.hidden_field :name %>
+                        <%= f.hidden_field :sport_event %>
+                        <%= f.hidden_field :area %>
+                        <%= f.hidden_field :number_of_member %>
+                        <%= f.hidden_field :profile_image_cache if @team.profile_image.url %>
+                        <%= f.hidden_field :introduction %>
+                        <%= f.submit '戻る', name: 'back', class: "btn btn-outline-secondary btn-sm" %>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </div>

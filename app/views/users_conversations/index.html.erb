@@ -28,12 +28,30 @@
         </div>
         <div class="col-9">
           <div class="text-left">
-            <strong><%= link_to "#{partner.name}さんと会話する", user_users_conversation_path(current_user.id, conversation.id) %></strong>
+            <strong><%= link_to "#{partner.name}さんとの会話", user_users_conversation_path(current_user.id, conversation.id) %></strong>
+            <% unread_messages = conversation.users_messages.where.not(user_id: current_user.id).where(read: false).count %>
+            <% if unread_messages == 0 %>
+              <div class="badge badge-pill badge-secondary"><%= unread_messages %></div>
+            <% else %>
+              <strong class="badge badge-pill badge-danger"><%= unread_messages %></strong>
+            <% end %>
             <br>
             <div class="col-12 text-secondary">
               <% latest_message = conversation.users_messages.order("updated_at DESC").first %>
               <% if latest_message %>
-                <%= latest_message.body[0, 30] + "・・・" %>
+                <% if unread_messages == 0 %>
+                  <% if latest_message.body.length <= 20 %>
+                    <small><%= latest_message.body %></small>
+                  <% else %>
+                    <small><%= latest_message.body[0, 20] + "…" %></small>
+                  <% end %>
+                <% elsif %>
+                  <% if latest_message.body.length <= 20 %>
+                    <small><strong><%= latest_message.body %></strong></small>
+                  <% else %>
+                    <small><strong><%= latest_message.body[0, 20] + "…" %></strong></small>
+                  <% end %>
+                <% end %>
               <% else %>
                 <%= partner.name %>さんとのメッセージはまだありません。
               <% end %>
