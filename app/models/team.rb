@@ -1,5 +1,4 @@
 class Team < ApplicationRecord
-  
   mount_uploader :profile_image, TeamProfileImageUploader
   
   before_validation :set_first_value
@@ -20,5 +19,4 @@ class Team < ApplicationRecord
     self.number_of_member = 1 unless number_of_member?
     self.introduction = '未登録' unless introduction?
   end
-  
 end

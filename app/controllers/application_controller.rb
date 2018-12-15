@@ -16,5 +16,4 @@ class ApplicationController < ActionController::Base
       redirect_to '/404.html' unless "#{current_user.id}" == params[:id]
     end
   end
-  
 end

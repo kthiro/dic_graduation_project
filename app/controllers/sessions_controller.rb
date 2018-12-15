@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  
   before_action :unlogged_in, except: [:new, :create]
   
   def new
@@ -27,5 +26,4 @@ class SessionsController < ApplicationController
       redirect_to new_session_path, notice: 'ログアウトしました'
     end
   end
-  
 end

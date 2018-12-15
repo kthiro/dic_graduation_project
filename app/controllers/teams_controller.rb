@@ -1,5 +1,4 @@
 class TeamsController < ApplicationController
-  
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   before_action :unlogged_in
   
@@ -43,7 +42,6 @@ class TeamsController < ApplicationController
   def update
     @team.update(team_params)
     redirect_to team_path(@team.id), notice: 'チーム情報を更新しました'
-    # binding.pry
   end
   
   def destroy
@@ -64,5 +62,4 @@ class TeamsController < ApplicationController
   def set_team
     @team = Team.find(params[:id])
   end
-
 end

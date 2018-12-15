@@ -1,5 +1,4 @@
 module TeamsHelper
-  
   def choose_new_or_edit
     if action_name == 'new' || action_name == 'confirm'
       confirm_teams_path
@@ -7,5 +6,4 @@ module TeamsHelper
       team_path(@team.id)
     end
   end
-  
 end
