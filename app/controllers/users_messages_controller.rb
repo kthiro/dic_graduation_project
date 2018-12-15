@@ -1,5 +1,4 @@
 class UsersMessagesController < ApplicationController
-
   before_action :unlogged_in, :unmatching_id
   
   def create
@@ -32,5 +31,4 @@ class UsersMessagesController < ApplicationController
       @partner = User.find(@conversation.sender_id)
     end
   end
-
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   root to: 'tops#index'
 
   resources :users do
@@ -24,5 +23,4 @@ Rails.application.routes.draw do
       post :confirm
     end
   end
-  
 end

@@ -1,5 +1,4 @@
 class RelationshipsController < ApplicationController
-  
   include RelationshipsHelper
   before_action :unlogged_in
   
@@ -14,5 +13,4 @@ class RelationshipsController < ApplicationController
     @relationship.delete
     redirect_to from_users_or_leaders_or_followers, notice: "#{User.find(@relationship.leader_id).name}のフォローを解除しました"
   end
-  
 end

@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
-  
   before_action :set_user, :unmatching_id, only: [:show, :edit, :update, :destroy]
   before_action :unlogged_in, except: [:new, :confirm, :create]
-  
   
   def new
     if params[:back]
@@ -30,9 +28,7 @@ class UsersController < ApplicationController
 
   def index
     @q = User.ransack(params[:q])
-    # binding.pry
     @users = @q.result(distinct: true).order("updated_at DESC")
-    # binding.pry
     @relationships = current_user.active_relationships
   end
 
@@ -68,5 +64,4 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-
 end

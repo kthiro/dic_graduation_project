@@ -14,5 +14,4 @@ module SessionsHelper
   def administering?
     current_team.present?
   end
-  
 end

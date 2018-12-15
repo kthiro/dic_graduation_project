@@ -1,5 +1,4 @@
 class UsersConversationsController < ApplicationController
-  
   before_action :set_users_conversation, only: [:show]
   before_action :unlogged_in, :unmatching_id
 
@@ -10,7 +9,6 @@ class UsersConversationsController < ApplicationController
       @conversation = current_user.sending_users_conversations.create!(users_conversation_params)
     end
     redirect_to user_users_conversation_path(current_user.id, @conversation.id)
-
   end
 
   def index
@@ -42,5 +40,4 @@ class UsersConversationsController < ApplicationController
       @partner = User.find(@conversation.sender_id)
     end
   end
-  
 end
